@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achafone - A Verdade que Você Precisa Saber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4A838;
+            --gold-light: #F5ECD8;
+            --gold-dark: #B8941F;
+            --gold-soft: rgba(212, 168, 56, 0.15);
+            --dark: #0D0D0D;
+            --dark-secondary: #161616;
+            --dark-tertiary: #202020;
+            --gray: #A8A8A8;
+            --gray-light: #C8C8C8;
+            --white: #FFFFFF;
+            --success: #22C55E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 17px;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 0.3em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(13, 13, 13, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 1rem 5%;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.4rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            letter-spacing: 0.02em;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--dark);
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+            background: linear-gradient(135deg, #D4AF37 0%, var(--gold) 100%);
+        }
+
+        .cta-button i {
+            font-size: 1rem;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: var(--white);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 5% 6rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 50%, var(--dark) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 70%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(201, 162, 39, 0.08) 0%, transparent 60%);
+            animation: float 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--dark), transparent);
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .hero-content {
+            max-width: 680px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42%;
+            max-width: 580px;
+            z-index: 2;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 
+                0 40px 80px rgba(0,0,0,0.6),
+                0 0 0 1px rgba(201, 162, 39, 0.1),
+                0 0 60px rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 50px 100px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(201, 162, 39, 0.15),
+                0 0 80px rgba(201, 162, 39, 0.15);
+        }
+
+        @media (max-width: 1200px) {
+            .hero-image {
+                display: none;
+            }
+            
+            .hero {
+                padding: 8rem 5% 5rem;
+            }
+        }
+
+        /* Visual Section with Image 02 */
+        .visual-section {
+            padding: 7rem 5%;
+            background: linear-gradient(135deg, var(--dark-secondary) 0%, var(--dark) 50%, var(--dark-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(201, 162, 39, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(201, 162, 39, 0.04) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .visual-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .visual-image {
+            position: relative;
+        }
+
+        .visual-image::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid rgba(201, 162, 39, 0.25);
+            border-radius: 28px;
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .visual-image:hover::before {
+            transform: translate(8px, 8px);
+            border-color: rgba(201, 162, 39, 0.35);
+        }
+
+        .visual-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 
+                0 40px 80px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.15);
+            transition: all 0.5s ease;
+        }
+
+        .visual-image:hover img {
+            transform: scale(1.02);
+            box-shadow: 
+                0 50px 100px rgba(0,0,0,0.6),
+                0 0 0 1px rgba(201, 162, 39, 0.15);
+            border-color: rgba(201, 162, 39, 0.25);
+        }
+
+        .visual-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .visual-content h2 span {
+            color: var(--gold);
+        }
+
+        .visual-content p {
+            color: var(--gray);
+            font-size: 1.0625rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+        }
+
+        .visual-features {
+            list-style: none;
+        }
+
+        .visual-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.875rem;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 1rem;
+            color: var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .visual-features li:hover {
+            color: var(--white);
+            padding-left: 0.5rem;
+        }
+
+        .visual-features li:last-child {
+            border-bottom: none;
+        }
+
+        .visual-features li i {
+            color: var(--gold);
+            font-size: 1.125rem;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 992px) {
+            .visual-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .visual-image {
+                order: -1;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .visual-content h2 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            .visual-content p {
+                text-align: center;
+            }
+
+            .visual-features {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.625rem;
+            background: rgba(201, 162, 39, 0.12);
+            border: 1px solid rgba(201, 162, 39, 0.35);
+            padding: 0.625rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-badge i {
+            font-size: 0.875rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.25rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta .cta-button {
+            padding: 1.125rem 2rem;
+            font-size: 1.0625rem;
+            font-weight: 600;
+        }
+
+        .hero-cta .secondary-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 1.125rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.0625rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-cta .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.375rem;
+        }
+
+        .stat-label {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 7rem 5%;
+            background: var(--dark-secondary);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.3), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.75rem;
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .section-header h2 span {
+            color: var(--gold);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.75rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2.25rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.7s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(201, 162, 39, 0.2);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(201, 162, 39, 0.1);
+            background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(201, 162, 39, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.25) 0%, rgba(201, 162, 39, 0.1) 100%);
+            transform: scale(1.05);
+        }
+
+        .feature-icon i {
+            font-size: 1.625rem;
+            color: var(--gold);
+        }
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.875rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 7rem 5%;
+            position: relative;
+            background: var(--dark);
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.2), transparent);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .step:hover {
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            border-color: rgba(201, 162, 39, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(201, 162, 39, 0.12);
+            position: absolute;
+            top: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .step-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border: 2px solid rgba(201, 162, 39, 0.2);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-icon {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.25) 0%, rgba(201, 162, 39, 0.1) 100%);
+            border-color: rgba(201, 162, 39, 0.3);
+            transform: scale(1.05);
+        }
+
+        .step-icon i {
+            font-size: 1.625rem;
+            color: var(--gold);
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step p {
+            color: var(--gray);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 7rem 5%;
+            background: var(--dark);
+            position: relative;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.25), transparent);
+        }
+
+        .pricing-card {
+            max-width: 560px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, rgba(201, 162, 39, 0.08) 0%, rgba(201, 162, 39, 0.02) 100%);
+            border: 1.5px solid rgba(201, 162, 39, 0.25);
+            border-radius: 28px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(201, 162, 39, 0.05) inset;
+        }
+
+        .pricing-card::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: 24px;
+            right: -40px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--dark);
+            padding: 0.5rem 3rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+        }
+
+        .pricing-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(201, 162, 39, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .pricing-badge i {
+            color: var(--gold);
+            font-size: 0.875rem;
+        }
+
+        .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 1rem 0;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+            display: block;
+            margin-top: 0.75rem;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 2.5rem 0;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            font-size: 0.9375rem;
+            color: var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-features li:hover {
+            color: var(--white);
+            padding-left: 0.25rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li i {
+            color: var(--gold);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .pricing-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.625rem;
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--dark);
+            padding: 1.125rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.0625rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.35);
+            letter-spacing: 0.01em;
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(201, 162, 39, 0.45);
+            background: linear-gradient(135deg, #D4AF37 0%, var(--gold) 100%);
+        }
+
+        .pricing-cta i {
+            font-size: 1.25rem;
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .guarantee i {
+            color: var(--success);
+            font-size: 1rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 7rem 5%;
+            background: var(--dark-secondary);
+            position: relative;
+        }
+
+        .faq::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.2), transparent);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 3.5rem auto 0;
+        }
+
+        .faq-item {
+            background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            margin-bottom: 0.875rem;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(201, 162, 39, 0.2);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        .faq-item.active {
+            border-color: rgba(201, 162, 39, 0.25);
+            background: linear-gradient(145deg, rgba(201, 162, 39, 0.05) 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        .faq-question {
+            padding: 1.375rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1.0625rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--gold);
+        }
+
+        .faq-question i {
+            color: var(--gold);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            color: var(--gray);
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 400px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 5rem 5% 2.5rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.25), transparent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            font-size: 0.9375rem;
+            line-height: 1.8;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            color: var(--gold);
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.875rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.875rem;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            font-size: 1.0625rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-3px);
+            border-color: var(--gold);
+            box-shadow: 0 8px 20px rgba(201, 162, 39, 0.3);
+        }
+
+        /* Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .floating-cta a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8941F 100%);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s;
+        }
+
+        .floating-cta a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 7rem 5% 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+
+            .price {
+                font-size: 3rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .floating-cta {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+
+            .floating-cta a {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8941F;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">ACHAFONE</div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="#" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            Achafone
+        </a>
+        <nav>
+            <a href="#features">Funcionalidades</a>
+            <a href="#how-it-works">Como Funciona</a>
+            <a href="#pricing">Preço</a>
+            <a href="#faq">FAQ</a>
+            <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto." class="cta-button">Começar Agora</a>
+            <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto." class="whatsapp-btn" title="Falar no WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </nav>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-lock"></i>
+                Tecnologia Discreta e Segura
+            </div>
+            <h1>
+                A Verdade Está ao Seu Alcance. <span>Pare de Imaginar. Comece a Saber.</span>
+            </h1>
+            <p>
+                Você sente que algo está errado, mas não tem certeza? A dúvida consome suas noites e mina sua paz. O Achafone é a solução definitiva para quem precisa de respostas reais — não suposições.
+            </p>
+            <div class="hero-cta">
+                <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto." class="cta-button">
+                    <i class="fab fa-whatsapp"></i>
+                    Quero Saber a Verdade
+                </a>
+                <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto." class="secondary-button">
+                    <i class="fab fa-whatsapp"></i>
+                    Falar no WhatsApp
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number" data-target="50000">0</div>
+                    <div class="stat-label">Clientes Atendidos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">% Satisfação</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">h Suporte</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="01.jpg" alt="Demonstração do Painel Achafone - Aplicativo de monitoramento">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header fade-in">
+            <h2>O Que o <span>Achafone</span> Faz Por Você</h2>
+            <p>Tecnologia avançada, interface simples. Não precisa ser expert em tecnologia para ter acesso às informações que precisa.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Localização em Tempo Real</h3>
+                <p>Saiba exatamente onde a pessoa está, a qualquer momento. Sem atrasos, sem mentiras. A verdade geográfica em suas mãos.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Conversas Recuperadas</h3>
+                <p>Mensagens apagadas, fotos enviadas por engano, conversas em modo secreto — tudo recuperável. Nada fica escondido.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Histórico Completo de Ligações</h3>
+                <p>Veja para quem ligou, quanto tempo falou e quando. Mesmo registros apagados ficam acessíveis para você.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-ghost"></i>
+                </div>
+                <h3>Invisibilidade Total</h3>
+                <p>Zero notificações, zero lentidão no celular monitorado, zero rastros. O alvo nunca saberá que está sendo observado.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Criptografia de Ponta</h3>
+                <p>Seus dados e acesso são blindados com tecnologia militar. Ninguém além de você tem acesso às informações coletadas.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Suporte Humano 24h</h3>
+                <p>Não é robô. São especialistas prontos para te guiar na instalação e responder qualquer dúvida a qualquer hora.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header fade-in">
+            <h2>Como <span>Funciona</span></h2>
+            <p>Simples, rápido e discreto. Em poucos passos, você terá acesso completo às informações que precisa.</p>
+        </div>
+        <div class="steps">
+            <div class="step fade-in">
+                <div class="step-number">01</div>
+                <div class="step-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3>Faça Seu Pedido</h3>
+                <p>Escolha o plano e finalize sua compra de forma segura. Pagamento único, sem mensalidades surpresa.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">02</div>
+                <div class="step-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3>Instalação Guiada</h3>
+                <p>Receba o acesso imediato e siga o passo a passo. Nosso suporte está disponível 24h para ajudar.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">03</div>
+                <div class="step-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Comece a Monitorar</h3>
+                <p>Acesse o painel e veja tudo em tempo real. Localização, conversas, ligações — tudo na palma da sua mão.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">04</div>
+                <div class="step-icon">
+                    <i class="fas fa-unlock-alt"></i>
+                </div>
+                <h3>Acesso Vitalício</h3>
+                <p>Pague uma vez e use para sempre. Atualizações gratuitas e suporte contínuo sem custo adicional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Section with Image 02 -->
+    <section class="visual-section">
+        <div class="visual-container">
+            <div class="visual-image fade-in">
+                <img src="02.jpg" alt="Interface do Painel de Controle Achafone - Dashboard de monitoramento">
+            </div>
+            <div class="visual-content fade-in">
+                <h2>Veja Tudo em <span>Tempo Real</span></h2>
+                <p>Nosso painel de controle intuitivo te dá acesso instantâneo a todas as informações. Localização precisa, conversas completas, histórico de chamadas — tudo organizado de forma clara e fácil de entender.</p>
+                <ul class="visual-features">
+                    <li><i class="fas fa-check-circle"></i> Interface intuitiva e moderna</li>
+                    <li><i class="fas fa-check-circle"></i> Atualizações em tempo real</li>
+                    <li><i class="fas fa-check-circle"></i> Acesso de qualquer dispositivo</li>
+                    <li><i class="fas fa-check-circle"></i> Relatórios detalhados e exportáveis</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-header fade-in">
+            <h2>Investimento <span>Único</span></h2>
+            <p>Sem mensalidades, sem taxas escondidas. Um único pagamento para acesso vitalício.</p>
+        </div>
+        <div class="pricing-card fade-in">
+            <div class="pricing-badge">
+                <i class="fas fa-crown"></i>
+                Plano Completo
+            </div>
+            <h3>Acesso Total</h3>
+            <div class="price">
+                R$ 499,99
+                <span>Pagamento Único • Acesso Vitalício</span>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check-circle"></i> Localização em tempo real</li>
+                <li><i class="fas fa-check-circle"></i> Recuperação de conversas apagadas</li>
+                <li><i class="fas fa-check-circle"></i> Acesso a ligações e contatos</li>
+                <li><i class="fas fa-check-circle"></i> Modo invisível garantido</li>
+                <li><i class="fas fa-check-circle"></i> Painel de controle web</li>
+                <li><i class="fas fa-check-circle"></i> Compatível com Android e iOS</li>
+                <li><i class="fas fa-check-circle"></i> Atualizações gratuitas</li>
+                <li><i class="fas fa-check-circle"></i> Suporte humano 24h</li>
+            </ul>
+            <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto." class="pricing-cta">
+                <i class="fab fa-whatsapp"></i>
+                Quero Acesso Agora
+            </a>
+            <div class="guarantee">
+                <i class="fas fa-shield-alt"></i>
+                <span>Garantia de 15 dias ou seu dinheiro de volta</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-header fade-in">
+            <h2>Perguntas <span>Frequentes</span></h2>
+            <p>Tire suas dúvidas antes de começar. Estamos aqui para ajudar.</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    <span>A pessoa vai saber que estou monitorando?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Não. O Achafone opera em modo completamente invisível. Não há notificações, ícones visíveis, lentidão no aparelho ou qualquer indício de monitoramento.
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    <span>Preciso ter acesso ao celular da pessoa?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Sim, é necessário acesso físico ao aparelho por alguns minutos para realizar a instalação inicial. Após isso, todo o monitoramento é feito remotamente.
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    <span>Funciona em qualquer celular?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Sim, o Achafone é compatível com todos os aparelhos Android e iOS, novos ou antigos. Nosso suporte pode ajudar com qualquer modelo específico.
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    <span>E se eu tiver dificuldades na instalação?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Nosso suporte humano está disponível 24 horas por dia, 7 dias por semana. Seja por chat, WhatsApp ou ligação, nossa equipe especializada vai guiar você passo a passo.
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    <span>Qual é a garantia?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Oferecemos garantia de 15 dias. Se você não tiver acesso total e funcional às informações em até 15 dias, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    Achafone
+                </a>
+                <p>Tecnologia avançada para quem precisa de respostas. Discreto, seguro e eficaz. Sua verdade começa aqui.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Produto</h4>
+                <ul>
+                    <li><a href="#features">Funcionalidades</a></li>
+                    <li><a href="#pricing">Preços</a></li>
+                    <li><a href="#">Compatibilidade</a></li>
+                    <li><a href="#">Atualizações</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">LGPD</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Achafone. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto."><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta">
+        <a href="https://wa.me/21973202163?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Achafone%20e%20quero%20saber%20mais%20sobre%20o%20produto.">
+            <i class="fab fa-whatsapp"></i>
+            Falar no WhatsApp
+        </a>
+    </div>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            entry.target.textContent = Math.floor(current).toLocaleString();
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            entry.target.textContent = target.toLocaleString() + '+';
+                        }
+                    };
+                    
+                    updateCounter();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
